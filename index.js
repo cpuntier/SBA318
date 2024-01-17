@@ -7,6 +7,13 @@ const characters = require("./data/characters");
 const users = require("./data/users");
 const comments = require("./data/comments");
 
+const charRouter = require("./routes/characters.js");
+const userRouter = require("./routes/users.js");
+const commentsRouter = require("./routes/comments.js");
+
+app.use("/characters",charRouter);
+app.use("/users",userRouter);
+app.use("/comments",commentsRouter);
 
 
 
@@ -15,27 +22,13 @@ app.get("/", (req,res) => {
 })
 
 
-app.get("/characters",(req,res) => {
-    res.json(characters);
-})
-
-app.get("/characters/:name",(req,res)=> {
-    const character = characters.find((c) => c.name === req.params["name"])
-    console.log(character);
-    console.log(req.params["name"])
-    console.log(character);
-    res.json(character);
-})
 
 
-app.get("/users",(res,req) => {
-    res.json(users);
-})
+// app.get("/comments",(req,res)=>{
+//     res.json(comments);
+// })
 
 
-app.get("/comments",(res,req)=>{
-    res.json(comments);
-})
 
 
 
