@@ -20,6 +20,12 @@ const comments = [
         charId: 3,
         userId: 2,
         content: "Ken should stay broke in the story LOL"
+    },
+    {
+        id:4,
+        charId:1,
+        userId:2,
+        content:"Shut up. You're boring."
     }
 ]
 

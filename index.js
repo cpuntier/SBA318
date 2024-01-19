@@ -1,6 +1,13 @@
 express = require("express");
 app = express();
 
+
+ejs = require("ejs");
+app.set('view engine', 'ejs');
+
+const bodyParser = require("body-parser");
+
+
 const PORT = 3000;
 
 const characters = require("./data/characters");
@@ -15,12 +22,23 @@ app.use("/characters",charRouter);
 app.use("/users",userRouter);
 app.use("/comments",commentsRouter);
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ extended: true }));
+
 
 
 app.get("/", (req,res) => {
     res.send("This is the home page");
 })
 
+app.use("/",(req,res) => {
+    res.send("There is nobody here").status(404)
+})
+
+app.use((err, req, res, next) => {
+    console.error(err.stack)
+    res.status(500).send('Something broke!')
+  })
 
 app.listen(PORT, ()=> {
     console.log("The Server has challenged you to a match!")

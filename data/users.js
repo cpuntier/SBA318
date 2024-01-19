@@ -18,6 +18,10 @@ const users = [
     {
         id: 4,
         name: "Goose"
+    },
+    {
+        id: 9001,
+        name: "admin"
     }
 ]
 
