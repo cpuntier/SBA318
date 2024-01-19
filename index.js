@@ -22,16 +22,6 @@ app.get("/", (req,res) => {
 })
 
 
-
-
-// app.get("/comments",(req,res)=>{
-//     res.json(comments);
-// })
-
-
-
-
-
 app.listen(PORT, ()=> {
     console.log("The Server has challenged you to a match!")
 })

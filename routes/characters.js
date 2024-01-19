@@ -3,13 +3,21 @@ const express = require("express")
 
 const router = express.Router();;
 const characters = require("../data/characters.js");
-
+const calcAverage = require("../data/characters.js");
 
 
 router.route('/')
     .get((req, res) => {
+        if(req.query["rating"]){
+            const character = characters.filter((c) => c.rating > req.query.rating)
+            res.json(character);
+        }else{
+
         res.json(characters);
+        }
     })
+
+
 
 
 
@@ -28,6 +36,10 @@ router.route("/:name")
             content: req.body.content
         })
     })
+
+
+
+
 
 
 
