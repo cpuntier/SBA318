@@ -20,3 +20,19 @@
 .username{
     font-style:oblique;
 }
+
+.commentsBox{
+    height:440px;
+    /* background-color:#CCC; */		
+    overflow-y:auto;
+    position:relative;
+}
+
+body{
+    background-color: burlywood;
+}
+
+.inputBox{
+    width: 90vw;
+    height : 20px;
+}

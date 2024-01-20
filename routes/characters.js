@@ -60,6 +60,11 @@ router.route("/:name")
     }).post((req, res) => { //used to make comments on character page
         const character = characters.find((c) => c.name === req.params["name"]);
         const user = users.find((u) => u.id == req.query.userId)
+        console.log(req.body.comment);
+        if(req.body.comment[0] == ""){
+            res.send("Request could not be made. No data provided.");
+            next();
+        }
         if (!user && req.query.userId) {
             res.send("UserID not found");
         }

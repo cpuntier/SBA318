@@ -1,5 +1,5 @@
 //This file contains simple data structures that houses character data from sf6
-
+//ratings exists for potential future. wanted to allow users to add their own ratings decided not to due to time.
 
 const characters = [
     {

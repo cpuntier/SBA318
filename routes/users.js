@@ -19,7 +19,7 @@ router.route('/') // base page for receiving users
     })
 
     //finds user with unique id
-router.route('/:id')
+router.route('/:id') //
 .get((req, res, next) => {
     const user = users.find((u) => u.id == req.params.id);
     console.log(users);
