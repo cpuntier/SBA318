@@ -4,12 +4,14 @@ const express = require("express")
 const router = express.Router();;
 const characters = require("../data/characters.js");
 const commentsSrc = require("../data/comments.js");
+const users = require("../data/users.js");
 
 // const bodyParser = require('body-parser');
 // app.use(bodyParser.urlencoded({ extended: true }));
 
 
 //middleware used to cacl average rating when viewing character pages
+
 router.use("/",(req,res,next) => {
     for(let i in characters){
         characters[i].avgRate = calcRating(characters[i].ratings);
@@ -19,7 +21,7 @@ router.use("/",(req,res,next) => {
 
 router.use("/:name",(req,res,next) => {
     const character = characters.find((c) => c.name == req.params["name"]);
-    console.log("name is ", req.params["name"]);
+//    console.log("name is ", req.params["name"]);
     character.avgRate = calcRating(character.ratings);
     next();
 })
@@ -48,7 +50,11 @@ router.route("/:name")
             res.render('../pages/characters.ejs', {
                 name: character.name,
                 description: character.description,
-                comments: comments
+                comments: comments,
+                img : character.img_src,
+                users: users,
+                rate : character.avgRate
+
 
             })
         }else{
@@ -60,8 +66,8 @@ router.route("/:name")
         commentsSrc.push({
             id: commentsSrc[commentsSrc.length-1].id+1,
             charId: character.id,
-            userId: 4,
-            content: req.body.comment[0]
+            userId: req.query.userId || 9001,
+            content: req.body.comment[0],
         })
 
         const comments = commentsSrc.filter((c) => c.charId === character.id);
@@ -69,13 +75,13 @@ router.route("/:name")
         res.render('../pages/characters.ejs', {
             name: character.name,
             description: character.description,
-            comments: comments
+            comments: comments,
+            img : character.img_src,
+            users: users,
+            rate : character.avgRate
 
         });
     })
-
-
-
 
 function calcRating(array){
     let sum = 0;

@@ -4,31 +4,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/characters.css">
     <title>Document</title>
 </head>
 
 <body>
-    <div>
-        <h1>
-            <%= name %>
-        </h1>
-        <h2>
-            <%= description %>
-        </h2>
-        <h4>Comments</h4>
+    <div class="fullpage">
+        <div class="img-container">
+            <img class="char-img" src=<%=img %>>
+
+        </div>
+        <div class="info-container">
+            <h1>
+                <%= name %>
+            </h1>
+            <h3>
+                <%= description %>
+            </h3>
+            <br>
+            <h2>Average Rating:<%= rate %>
+            </h2>
+
+
+        </div>
+    </div>
+    <h4>Comments</h4>
+    <div class="commentsBox">
+
         <ul>
             <% for(var i=0; i<comments.length; i++) { %>
                 <li>
+
+                    <b class="username">
+                        <%= users.find((u)=>u.id == comments[i].userId).name %>:
+                    </b>
                     <%= comments[i].content %>
                 </li>
                 <% } %>
         </ul>
-
-        <form  method="post">
-            <input type="text" name="comment">
-            <input type="submit" name ="comment" value="Comment" action = "/">
-        </form>
     </div>
+
+    <form method="post">
+        <input type="text" name="comment">
+        <input type="submit" name="comment" value="Comment" action="/">
+    </form>
+
 </body>
 
 </html>

@@ -6,7 +6,8 @@ const characters = [
         id: 1,
         name: "Ryu",
         description: "Ever training, this martial artist seeks true strength. Well-mannered and sincere, Ryu travels the globe in search of worthy opponents. Having overcome the Satsui no Hado, he now seeks yet greater heights.",
-        ratings : [2.4,3.0,2.0,3]       
+        ratings : [2.4,3.0,2.0,3],
+        img_src : "https://www.streetfighter.com/6/assets/images/character/ryu/ryu.png"
     },
     {
         id: 2,

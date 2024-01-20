@@ -46,20 +46,14 @@ router.route('/:id')
         const newComment = req.body;
         console.log(newComment);
         comment.content = newComment.content;
-        // //    console.log(comments.findIndex((c) => c == comment));
 
         res.json(comment);
     }).delete((req, res) => {
         let comment = comments.find((c) => c.id == req.params["id"]);
         if (comment) {
-            //        console.log(comment);
-            //        console.log(comments.indexOf(comment));
-            //        console.log(comments.splice(1,comments.indexOf(comment)));
             console.log("This is the comment:",comment)
             console.log("This is the index:",comments.indexOf(comment))
- //           console.log("This is splice return",comments.toSpliced(comments.indexOf(comment), 1))
             comments = comments.toSpliced(comments.indexOf(comment),1);
-            //        console.log("New comments is",comments);
             res.json(comments);
         } else {
             res.send("Cannot find comment").status(404);

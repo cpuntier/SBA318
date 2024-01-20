@@ -2,6 +2,12 @@
 
 
 
+//id matches that specific comment
+//charId matches the characters unique id
+//userId matches the unique id of the user
+//content is the content of the comment
+
+
 const comments = [
     {
         id: 1,

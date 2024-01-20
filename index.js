@@ -25,6 +25,9 @@ app.use("/comments",commentsRouter);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ extended: true }));
 
+app.use(express.static("./styles"))
+
+
 
 
 app.get("/", (req,res) => {

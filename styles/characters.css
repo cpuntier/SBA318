@@ -1,0 +1,22 @@
+.img-container{
+    border: solid red;
+}
+
+.info-container{
+    border: solid blue;
+}
+
+.fullpage{
+    display: flex;
+    flex-direction: row;
+    border:solid black;
+    height: 40vh;
+}
+
+.char-img{
+    height : 40vh;
+}
+
+.username{
+    font-style:oblique;
+}
