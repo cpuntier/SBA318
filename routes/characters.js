@@ -6,10 +6,6 @@ const characters = require("../data/characters.js");
 const commentsSrc = require("../data/comments.js");
 const users = require("../data/users.js");
 
-// const bodyParser = require('body-parser');
-// app.use(bodyParser.urlencoded({ extended: true }));
-
-
 //middleware used to calc average rating when viewing character pages
 
 router.use("/", (req, res, next) => {
@@ -61,7 +57,7 @@ router.route("/:name")
         } else {
             next();
         }
-    }).post((req, res) => {
+    }).post((req, res) => { //used to make comments on character page
         const character = characters.find((c) => c.name === req.params["name"]);
         const user = users.find((u) => u.id == req.query.userId)
         if (!user && req.query.userId) {

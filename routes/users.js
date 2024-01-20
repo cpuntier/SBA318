@@ -4,7 +4,7 @@ const router = express.Router();
 
 let users = require("../data/users.js");
 
-router.route('/')
+router.route('/') // base page for receiving users
     .get((req, res) => {
         res.json(users);
     }).post((req, res) => {
@@ -43,8 +43,6 @@ router.route('/:id')
     }else{
         next();
     }
-
-
 
 })
 
