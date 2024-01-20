@@ -30,10 +30,10 @@ router.route('/')
     .get((req, res) => {
         if (req.query["rating"]) {
             const character = characters.filter((c) => c.avgRate > req.query.rating)
-            if(character.length == 0){
-            res.json(character);
-            }else{
+            if (character.length == 0) {
                 res.send("No characters found")
+            } else {
+                res.json(character)
             }
         } else {
 
