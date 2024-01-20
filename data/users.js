@@ -1,6 +1,7 @@
 //Data of users;
 
-
+//Id is unique user ID
+//name is username displayed to everyone else
 
 const users = [
     {

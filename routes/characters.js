@@ -10,23 +10,23 @@ const users = require("../data/users.js");
 // app.use(bodyParser.urlencoded({ extended: true }));
 
 
-//middleware used to cacl average rating when viewing character pages
+//middleware used to calc average rating when viewing character pages
 
-router.use("/",(req,res,next) => {
-    for(let i in characters){
+router.use("/", (req, res, next) => {
+    for (let i in characters) {
         characters[i].avgRate = calcRating(characters[i].ratings);
     }
     next();
 })
 
-router.use("/:name",(req,res,next) => {
+//same middleware for /:name route
+router.use("/:name", (req, res, next) => {
     const character = characters.find((c) => c.name == req.params["name"]);
-//    console.log("name is ", req.params["name"]);
     character.avgRate = calcRating(character.ratings);
     next();
 })
 
-
+//route that shows json of characters, query option available for sorting by rating
 router.route('/')
     .get((req, res) => {
         if (req.query["rating"]) {
@@ -39,11 +39,12 @@ router.route('/')
     })
 
 
+//route that shows specific character and renders templated view
+//query for userId can be used to simulate different users posting comments
 router.route("/:name")
-    .get((req, res,next) => {
+    .get((req, res, next) => {
         const character = characters.find((c) => c.name === req.params["name"]);
-        //        console.log(comments);
-        //        console.log(character);
+        console.log("This is character", character.name);
         if (character) {
             const comments = commentsSrc.filter((c) => c.charId === character.id);
 
@@ -51,44 +52,61 @@ router.route("/:name")
                 name: character.name,
                 description: character.description,
                 comments: comments,
-                img : character.img_src,
+                img: character.img_src,
                 users: users,
-                rate : character.avgRate
+                rate: character.avgRate
 
 
             })
-        }else{
+        } else {
             next();
         }
-        //        res.json(character);
     }).post((req, res) => {
         const character = characters.find((c) => c.name === req.params["name"]);
-        commentsSrc.push({
-            id: commentsSrc[commentsSrc.length-1].id+1,
-            charId: character.id,
-            userId: req.query.userId || 9001,
-            content: req.body.comment[0],
-        })
+        const user = users.find((u) => u.id == req.query.userId)
+        if (!user && req.query.userId) {
+            res.send("UserID not found");
+        }
+        else if (!user) {
+            console.log("user does not exist");
+            userID = 9001;
+            commentsSrc.push({
+                id: commentsSrc[commentsSrc.length - 1].id + 1,
+                charId: character.id,
+                userId: userID,
+                content: req.body.comment[0],
+            })
 
-        const comments = commentsSrc.filter((c) => c.charId === character.id);
+        } else {
+            userID = req.query.userId;
+            commentsSrc.push({
+                id: commentsSrc[commentsSrc.length - 1].id + 1,
+                charId: character.id,
+                userId: userID,
+                content: req.body.comment[0],
+            })
+        }
 
-        res.render('../pages/characters.ejs', {
-            name: character.name,
-            description: character.description,
-            comments: comments,
-            img : character.img_src,
-            users: users,
-            rate : character.avgRate
+            const comments = commentsSrc.filter((c) => c.charId === character.id);
 
-        });
+            res.render('../pages/characters.ejs', {
+                name: character.name,
+                description: character.description,
+                comments: comments,
+                img: character.img_src,
+                users: users,
+                rate: character.avgRate
+            });
     })
 
-function calcRating(array){
+
+//function used in middle ware
+function calcRating(array) {
     let sum = 0;
-    for(let i = 0; i<array.length;i++){
+    for (let i = 0; i < array.length; i++) {
         sum += array[i]
     }
-    return sum/array.length;
+    return sum / array.length;
 }
 
 

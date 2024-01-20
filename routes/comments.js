@@ -10,7 +10,7 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ extended: true }));
 
-
+//route to show all comments
 router.route('/')
     .get((req, res, next) => {
         if (comments.length > 0) {
@@ -18,7 +18,7 @@ router.route('/')
         } else {
             next()
         }
-    }).post((req, res) => {
+    }).post((req, res) => { //allows for post requests adding comments
         console.log(req.body);
         const newComment = req.body;
         console.log(comments.length);
@@ -32,7 +32,7 @@ router.route('/')
     })
 
 //obtain a specific comment id
-router.route('/:id')
+router.route('/:id') // gets a comment with a specific id
     .get((req, res, next) => {
         const comment = comments.find((c) => c.id == req.params["id"]);
         if (comment) {
@@ -41,18 +41,16 @@ router.route('/:id')
         } else {
             next()
         }
-    }).patch((req, res) => {
+    }).patch((req, res) => { //updates a comment with specific id
         const comment = comments.find((c) => c.id == req.params["id"]);
         const newComment = req.body;
         console.log(newComment);
         comment.content = newComment.content;
 
         res.json(comment);
-    }).delete((req, res) => {
+    }).delete((req, res) => { // deletes a comment wiht  a specific id
         let comment = comments.find((c) => c.id == req.params["id"]);
         if (comment) {
-            console.log("This is the comment:",comment)
-            console.log("This is the index:",comments.indexOf(comment))
             comments = comments.toSpliced(comments.indexOf(comment),1);
             res.json(comments);
         } else {

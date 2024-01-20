@@ -35,7 +35,7 @@ app.get("/", (req,res) => {
 })
 
 app.use("/",(req,res) => {
-    res.send("There is nobody here").status(404)
+    res.send("Info Not Found").status(404)
 })
 
 app.use((err, req, res, next) => {
