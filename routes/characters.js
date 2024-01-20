@@ -6,6 +6,9 @@ const characters = require("../data/characters.js");
 const commentsSrc = require("../data/comments.js");
 const users = require("../data/users.js");
 
+
+
+
 //middleware used to calc average rating when viewing character pages
 
 router.use("/", (req, res, next) => {
@@ -26,8 +29,12 @@ router.use("/:name", (req, res, next) => {
 router.route('/')
     .get((req, res) => {
         if (req.query["rating"]) {
-            const character = characters.filter((c) => c.rating > req.query.rating)
+            const character = characters.filter((c) => c.avgRate > req.query.rating)
+            if(character.length == 0){
             res.json(character);
+            }else{
+                res.send("No characters found")
+            }
         } else {
 
             res.json(characters);
@@ -61,7 +68,7 @@ router.route("/:name")
         const character = characters.find((c) => c.name === req.params["name"]);
         const user = users.find((u) => u.id == req.query.userId)
         console.log(req.body.comment);
-        if(req.body.comment[0] == ""){
+        if (req.body.comment[0] == "") {
             res.send("Request could not be made. No data provided.");
             next();
         }
@@ -88,16 +95,16 @@ router.route("/:name")
             })
         }
 
-            const comments = commentsSrc.filter((c) => c.charId === character.id);
+        const comments = commentsSrc.filter((c) => c.charId === character.id);
 
-            res.render('../pages/characters.ejs', {
-                name: character.name,
-                description: character.description,
-                comments: comments,
-                img: character.img_src,
-                users: users,
-                rate: character.avgRate
-            });
+        res.render('../pages/characters.ejs', {
+            name: character.name,
+            description: character.description,
+            comments: comments,
+            img: character.img_src,
+            users: users,
+            rate: character.avgRate
+        });
     })
 
 
